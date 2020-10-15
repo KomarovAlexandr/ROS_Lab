@@ -39,19 +39,13 @@ void recieve(const std_msgs::Int8& input_number)
 int main(int argc, char **argv)
 {
     ROS_INFO("Start lab_1_komarov package");
-    ros::init(argc, argv, "fibonacci_number_publisher");
-    ros::NodeHandle n;
-    ros::Publisher fibonacci_number_pub = n.advertise<std_msgs::Int8>("/fibonacci_number", 10);
-
-
-    ros::init(argc, argv, "value_subscriber");
-    ros::NodeHandle k;
-    ros::Subscriber value_sub = k.subscribe("/fibonacci_number", 10, recieve);
     
+    ros::init(argc, argv, "fibonacci_number");
+    ros::NodeHandle n;
 
-    ros::init(argc, argv, "value_publisher");
-    ros::NodeHandle j;
-    g_value_pub = j.advertise<std_msgs::Int64>("/value", 10);
+    ros::Publisher fibonacci_number_pub = n.advertise<std_msgs::Int8>("/fibonacci_number", 10);
+    ros::Subscriber value_sub = n.subscribe("/fibonacci_number", 10, recieve);
+    g_value_pub = n.advertise<std_msgs::Int64>("/value", 10);
 
     ros::Rate loop_rate(1);
     std_msgs::Int8 number;
